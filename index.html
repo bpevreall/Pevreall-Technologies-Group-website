@@ -246,31 +246,75 @@
             border-top: 1px solid var(--border);
         }
 
-        .contact-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            text-decoration: none;
-            padding: 0.625rem 1.25rem;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--surface);
-            transition: all 0.2s ease;
-            margin-top: 1.5rem;
+        .contact-form {
+            margin-top: 2rem;
+            max-width: 440px;
         }
 
-        .contact-link:hover {
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.8rem;
+            margin-bottom: 0.75rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .contact-form button {
+            padding: 0.7rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .contact-form button:hover {
             border-color: var(--accent);
             color: var(--text);
             background: rgba(0, 255, 65, 0.05);
         }
 
-        .contact-link svg {
-            width: 16px;
-            height: 16px;
-            opacity: 0.6;
+        .contact-form .form-msg {
+            font-size: 0.75rem;
+            margin-top: 0.75rem;
+            color: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .contact-form .form-msg.visible {
+            opacity: 1;
+        }
+
+        .cf-turnstile {
+            margin-bottom: 0.75rem;
         }
 
         /* ── FOOTER ── */
@@ -344,13 +388,47 @@
         <div class="section-label">Contact</div>
         <h2>Get in touch</h2>
         <p class="section-text">We're not taking on clients. If you want to talk about what we're building, reach out.</p>
-        <a href="mailto:hello@pevrealltechnology.uk" class="contact-link">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            hello@pevrealltechnology.uk
-        </a>
+        <form class="contact-form" id="contactForm" action="/api/contact" method="POST">
+            <input type="email" name="email" placeholder="your@email.com" required />
+            <textarea name="message" placeholder="What's on your mind?" required></textarea>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAACyvf6eIigaQvDWP" data-theme="dark"></div>
+            <button type="submit">Send message</button>
+            <p class="form-msg" id="formMsg"></p>
+        </form>
     </section>
 
     <footer>&copy; 2026 Pevreall Technologies Group</footer>
 
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const msg = document.getElementById('formMsg');
+            const btn = form.querySelector('button');
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+            try {
+                const res = await fetch('/api/contact', {
+                    method: 'POST',
+                    body: new FormData(form)
+                });
+                if (res.ok) {
+                    msg.textContent = 'Message sent.';
+                    msg.classList.add('visible');
+                    form.reset();
+                    turnstile.reset();
+                } else {
+                    msg.textContent = 'Something went wrong. Try again.';
+                    msg.classList.add('visible');
+                }
+            } catch {
+                msg.textContent = 'Something went wrong. Try again.';
+                msg.classList.add('visible');
+            }
+            btn.textContent = 'Send message';
+            btn.disabled = false;
+        });
+    </script>
 </body>
 </html>
