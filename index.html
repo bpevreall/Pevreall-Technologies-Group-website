@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pevreall Technologies Group</title>
+    <meta name="description" content="Pevreall Technologies Group - Technology ventures across finance, health and data.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0f0a;
+            --surface: #0d140d;
+            --border: #1a2e1a;
+            --text: #d0e8d0;
+            --text-muted: #4a7a4a;
+            --accent: #00ff41;
+            --accent-dim: #00cc33;
+            --accent-glow: rgba(0, 255, 65, 0.08);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 255, 65, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 40px rgba(0, 255, 65, 0.12));
+        }
+
+        h1 {
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 span {
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: pulse 2s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        /* ── SECTIONS ── */
+        section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-label {
+            color: var(--accent);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .section-label::before {
+            content: '// ';
+            opacity: 0.4;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-text {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            max-width: 560px;
+            font-weight: 300;
+        }
+
+        /* ── VENTURES GRID ── */
+        .ventures {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 2.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .ventures { grid-template-columns: 1fr 1fr 1fr; }
+        }
+
+        .venture {
+            background: var(--surface);
+            padding: 2rem 1.5rem;
+            transition: background 0.2s;
+        }
+
+        .venture:hover {
+            background: rgba(0, 255, 65, 0.03);
+        }
+
+        .venture-icon {
+            color: var(--accent);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .venture h3 {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .venture p {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .venture .status {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        /* ── ETHOS ── */
+        .ethos-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .ethos-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .ethos-list li::before {
+            content: '>';
+            color: var(--accent);
+            margin-right: 0.75rem;
+            opacity: 0.5;
+        }
+
+        /* ── CONTACT ── */
+        .contact-section {
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-decoration: none;
+            padding: 0.625rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+            transition: all 0.2s ease;
+            margin-top: 1.5rem;
+        }
+
+        .contact-link:hover {
+            border-color: var(--accent);
+            color: var(--text);
+            background: rgba(0, 255, 65, 0.05);
+        }
+
+        .contact-link svg {
+            width: 16px;
+            height: 16px;
+            opacity: 0.6;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            opacity: 0.4;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="logo">
+            <img src="logo.PNG" alt="Pevreall Technologies Group" />
+        </div>
+        <h1>Pevreall Technologies <span>Group</span></h1>
+        <p class="tagline">Technology ventures across finance, health &amp; data.</p>
+        <div class="scroll-hint">scroll</div>
+    </div>
+
+    <!-- VENTURES -->
+    <section>
+        <div class="section-label">Ventures</div>
+        <h2>What we're building</h2>
+        <p class="section-text">We build and operate technology platforms across industries where software can make a real difference. Each venture runs independently under the group.</p>
+
+        <div class="ventures">
+            <div class="venture">
+                <div class="venture-icon">&pound;</div>
+                <h3>Fintech</h3>
+                <p>Expense management tooling for businesses that need more than a spreadsheet.</p>
+                <span class="status">in development</span>
+            </div>
+            <div class="venture">
+                <div class="venture-icon">+</div>
+                <h3>Healthtech</h3>
+                <p>Connecting patients to prescribers in underserved healthcare markets.</p>
+                <span class="status">in development</span>
+            </div>
+            <div class="venture">
+                <div class="venture-icon">&lambda;</div>
+                <h3>Quantitative Systems</h3>
+                <p>Automated trading infrastructure with machine learning at the management layer.</p>
+                <span class="status">in development</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ETHOS -->
+    <section>
+        <div class="section-label">Approach</div>
+        <h2>How we work</h2>
+        <p class="section-text">Small team, high leverage. We build with modern tooling and ship fast.</p>
+
+        <ul class="ethos-list">
+            <li>Build platforms, not services</li>
+            <li>Automate everything that can be automated</li>
+            <li>Stay lean until the product proves itself</li>
+            <li>Own the stack end to end</li>
+        </ul>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-section">
+        <div class="section-label">Contact</div>
+        <h2>Get in touch</h2>
+        <p class="section-text">We're not taking on clients. If you want to talk about what we're building, reach out.</p>
+        <a href="mailto:hello@pevrealltechnology.uk" class="contact-link">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            hello@pevrealltechnology.uk
+        </a>
+    </section>
+
+    <footer>&copy; 2026 Pevreall Technologies Group</footer>
+
+</body>
+</html>
