@@ -243,6 +243,60 @@
             opacity: 0.5;
         }
 
+        /* ── SCREENSHOTS ── */
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        @media (min-width: 700px) {
+            .screenshot-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .screenshot {
+            position: relative;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            aspect-ratio: 16 / 10;
+        }
+
+        .screenshot:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 255, 65, 0.08);
+        }
+
+        .screenshot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top left;
+            display: block;
+        }
+
+        .screenshot-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0.75rem 1rem;
+            background: linear-gradient(to top, rgba(10, 15, 10, 0.95) 0%, transparent 100%);
+            font-size: 0.7rem;
+            color: var(--text);
+            letter-spacing: 0.05em;
+        }
+
+        .screenshot-label span {
+            color: var(--accent);
+            margin-right: 0.4rem;
+            opacity: 0.6;
+        }
+
         /* ── WAITLIST ── */
         .waitlist-section {
             border-top: 1px solid var(--border);
@@ -360,6 +414,40 @@
                 <div class="step-num">05</div>
                 <h3>Export</h3>
                 <p>Monthly bundles ready for your accountant.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCREENSHOTS -->
+    <section>
+        <div class="section-label">Preview</div>
+        <h2>A look inside</h2>
+        <p class="section-text">Built with Nuxt and a Flask API. Dockerised, self-hosted, and running in production.</p>
+
+        <div class="screenshot-grid">
+            <div class="screenshot">
+                <img src="screenshots/dashboard.png" alt="Dashboard" loading="lazy" />
+                <div class="screenshot-label"><span>01</span>Dashboard</div>
+            </div>
+            <div class="screenshot">
+                <img src="screenshots/review.png" alt="Review" loading="lazy" />
+                <div class="screenshot-label"><span>02</span>Review</div>
+            </div>
+            <div class="screenshot">
+                <img src="screenshots/files.png" alt="File Manager" loading="lazy" />
+                <div class="screenshot-label"><span>03</span>File Manager</div>
+            </div>
+            <div class="screenshot">
+                <img src="screenshots/gap-analysis.png" alt="Gap Analysis" loading="lazy" />
+                <div class="screenshot-label"><span>04</span>Gap Analysis</div>
+            </div>
+            <div class="screenshot">
+                <img src="screenshots/process.png" alt="Process" loading="lazy" />
+                <div class="screenshot-label"><span>05</span>Processing</div>
+            </div>
+            <div class="screenshot">
+                <img src="screenshots/exports.png" alt="Exports" loading="lazy" />
+                <div class="screenshot-label"><span>06</span>Exports</div>
             </div>
         </div>
     </section>
