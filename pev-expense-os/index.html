@@ -261,14 +261,14 @@
             border: 1px solid var(--border);
             border-radius: 10px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
             aspect-ratio: 16 / 10;
+            cursor: zoom-in;
         }
 
         .screenshot:hover {
             border-color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(0, 255, 65, 0.08);
+            box-shadow: 0 10px 40px rgba(0, 255, 65, 0.12);
         }
 
         .screenshot img {
@@ -277,6 +277,68 @@
             object-fit: cover;
             object-position: top left;
             display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .screenshot:hover img {
+            transform: scale(1.25);
+            transform-origin: top left;
+        }
+
+        /* ── LIGHTBOX ── */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 2rem;
+            cursor: zoom-out;
+            backdrop-filter: blur(8px);
+        }
+
+        .lightbox.active {
+            display: flex;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .lightbox img {
+            max-width: 95%;
+            max-height: 90%;
+            object-fit: contain;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 20px 80px rgba(0, 255, 65, 0.15);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .lightbox-close:hover {
+            border-color: var(--accent);
+            color: var(--accent);
         }
 
         .screenshot-label {
@@ -486,10 +548,43 @@
         </form>
     </section>
 
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-close" id="lightboxClose">×</div>
+        <img id="lightboxImg" src="" alt="" />
+    </div>
+
     <footer>&copy; 2026 Pevreall Technologies Group</footer>
 
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxClose = document.getElementById('lightboxClose');
+
+        document.querySelectorAll('.screenshot').forEach(s => {
+            s.addEventListener('click', () => {
+                const img = s.querySelector('img');
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        lightbox.addEventListener('click', closeLightbox);
+        lightboxClose.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Waitlist form
         document.getElementById('waitlistForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const form = e.target;
