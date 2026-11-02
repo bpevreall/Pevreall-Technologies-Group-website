@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pevreall Technologies Group</title>
-    <meta name="description" content="Pevreall Technologies Group - Technology ventures across finance, health and data.">
+    <title>Pevreall Engineering</title>
+    <meta name="description" content="Pevreall Engineering — independent engineering, software and technology ventures.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -338,17 +338,56 @@
             position: relative;
             z-index: 1;
         }
+
+        /* Scroll-driven mechanical rails: native scrolling stays in control. */
+        :root { --scroll-distance: 0px; }
+        .drive { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+        .drive-side { position: absolute; top: 0; bottom: 0; width: 190px; }
+        .drive-left { left: 0; }
+        .drive-right { right: 0; transform: scaleX(-1); }
+        .rack { position: absolute; left: 124px; width: 17px; top: -24px; bottom: -24px; border-left: 2px solid #31523a; background: repeating-linear-gradient(to bottom, #31523a 0 8px, transparent 8px 24px); background-position: 0 var(--scroll-distance); opacity: .55; }
+        .cog { position: absolute; width: 244px; height: 244px; left: -111px; top: calc(50% - 122px); color: #31523a; will-change: transform; }
+        .cog svg { display: block; width: 100%; height: 100%; overflow: visible; }
+        .cog-small { width: 122px; height: 122px; left: -50px; top: calc(50% + 111px); color: #243e2b; }
+        .engineering-mark { color: var(--accent); font-size: .8rem; letter-spacing: .25em; margin-bottom: 2rem; border: 1px solid #31523a; padding: .65rem 1rem; }
+        .engineering-mark span { opacity: .35; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 4.75rem); max-width: 900px; }
+        .hero h1 span { display: block; color: #8eaf94; }
+        .tagline { color: #8eaf94; }
+        .section-text, .venture p, .ethos-list li { color: #8eaf94; }
+        .scroll-hint { color: #8eaf94; }
+        .scroll-hint::after { content: ' ↓'; color: var(--accent); }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        @media (max-width: 1000px) {
+            .drive-side { opacity: .6; }
+            .drive-left { left: -70px; }
+            .drive-right { right: -70px; }
+            section { max-width: calc(100% - 150px); }
+        }
+        @media (max-width: 600px) {
+            .drive-side { opacity: .45; }
+            .drive-left { left: -103px; }
+            .drive-right { right: -103px; }
+            section { max-width: 100%; padding: 4rem 2.75rem; }
+            .hero { padding: 2rem 2.75rem; }
+            .hero h1 { font-size: clamp(1.8rem, 8vw, 2.8rem); }
+            .tagline { max-width: 260px; font-size: .8rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .scroll-hint { animation: none; }
+            .cog { will-change: auto; }
+        }
     </style>
 </head>
 <body>
 
+    <div class="drive" aria-hidden="true"><div class="drive-side drive-left"><div class="rack"></div><div class="cog cog-large"></div><div class="cog cog-small"></div></div><div class="drive-side drive-right"><div class="rack"></div><div class="cog cog-large"></div><div class="cog cog-small"></div></div></div>
     <!-- HERO -->
     <div class="hero">
-        <div class="logo">
-            <img src="logo.PNG" alt="Pevreall Technologies Group" />
-        </div>
-        <h1>Pevreall Technologies <span>Group</span></h1>
-        <p class="tagline">Technology ventures across finance, health &amp; data.</p>
+        <div class="engineering-mark" aria-hidden="true">PE<span> / </span>01</div>
+        <h1>Pevreall <span>Engineering</span></h1>
+        <p class="tagline">Engineering systems. Building what comes next.</p>
         <div class="scroll-hint">scroll</div>
     </div>
 
@@ -400,15 +439,15 @@
         <h2>Get in touch</h2>
         <p class="section-text">We're not taking on clients. If you want to talk about what we're building, reach out.</p>
         <form class="contact-form" id="contactForm" action="/api/contact" method="POST">
-            <input type="email" name="email" placeholder="your@email.com" required />
-            <textarea name="message" placeholder="What's on your mind?" required></textarea>
+            <input aria-label="Your email" type="email" name="email" placeholder="your@email.com" required />
+            <textarea aria-label="Your message" name="message" placeholder="What's on your mind?" required></textarea>
             <div class="cf-turnstile" data-sitekey="0x4AAAAAACyvf6eIigaQvDWP" data-theme="dark"></div>
             <button type="submit">Send message</button>
             <p class="form-msg" id="formMsg"></p>
         </form>
     </section>
 
-    <footer>&copy; 2026 Pevreall Technologies Group</footer>
+    <footer>&copy; 2026 Pevreall Engineering</footer>
 
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
@@ -440,6 +479,40 @@
             btn.textContent = 'Send message';
             btn.disabled = false;
         });
+    </script>
+
+    <script>
+        (() => {
+            // 30 teeth at 24px pitch: rack travel and gear rotation stay linked.
+            const gear = (teeth) => {
+                const points = [];
+                for (let t = 0; t < teeth; t++) {
+                    for (const [fraction, radius] of [[0,108],[.18,108],[.28,120],[.72,120],[.82,108]]) {
+                        const a = (t + fraction) * Math.PI * 2 / teeth;
+                        points.push(`${122 + Math.cos(a)*radius},${122 + Math.sin(a)*radius}`);
+                    }
+                }
+                return `<svg viewBox="0 0 244 244" fill="none" stroke="currentColor" stroke-width="2"><polygon points="${points.join(' ')}" fill="#0a100b"/><circle cx="122" cy="122" r="80"/><circle cx="122" cy="122" r="27"/><path d="M122 42V95M122 149V202M42 122H95M149 122H202"/><circle cx="122" cy="122" r="7" fill="currentColor"/></svg>`;
+            };
+            document.querySelectorAll('.cog-large').forEach(el => el.innerHTML = gear(30));
+            document.querySelectorAll('.cog-small').forEach(el => el.innerHTML = gear(15));
+            const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+            const large = document.querySelectorAll('.cog-large');
+            const small = document.querySelectorAll('.cog-small');
+            let pending = false;
+            function render() {
+                pending = false;
+                const y = reduced.matches ? 0 : window.scrollY;
+                document.documentElement.style.setProperty('--scroll-distance', `${-y % 24}px`);
+                large.forEach(el => el.style.transform = `rotate(${-y / 2}deg)`);
+                small.forEach(el => el.style.transform = `rotate(${y + 12}deg)`);
+            }
+            addEventListener('scroll', () => {
+                if (!pending) { pending = true; requestAnimationFrame(render); }
+            }, {passive: true});
+            reduced.addEventListener('change', render);
+            render();
+        })();
     </script>
 </body>
 </html>
