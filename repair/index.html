@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repair | Pevreall Engineering</title>
+    <meta name="description" content="Electronics, wiring and connected-equipment troubleshooting. Start with the symptoms, the equipment and the result you need.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0f0a;
+            --surface: #0d140d;
+            --border: #1a2e1a;
+            --text: #d0e8d0;
+            --text-muted: #4a7a4a;
+            --accent: #00ff41;
+            --accent-dim: #00cc33;
+            --accent-glow: rgba(0, 255, 65, 0.08);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 255, 65, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 40px rgba(0, 255, 65, 0.12));
+        }
+
+        h1 {
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 span {
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: pulse 2s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        /* ── SECTIONS ── */
+        section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-label {
+            color: var(--accent);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .section-label::before {
+            content: '// ';
+            opacity: 0.4;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-text {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            max-width: 560px;
+            font-weight: 300;
+        }
+
+        /* ── VENTURES GRID ── */
+        .ventures {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 2.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .ventures { grid-template-columns: 1fr 1fr 1fr; }
+        }
+
+        .venture {
+            background: var(--surface);
+            padding: 2rem 1.5rem;
+            transition: background 0.2s;
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .venture:hover {
+            background: rgba(0, 255, 65, 0.03);
+        }
+
+        .venture-link:hover h3 {
+            color: var(--accent);
+        }
+
+        .venture-link h3 {
+            transition: color 0.2s;
+        }
+
+        .venture-icon {
+            color: var(--accent);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .venture h3 {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .venture p {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .venture .status {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        /* ── ETHOS ── */
+        .ethos-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .ethos-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .ethos-list li::before {
+            content: '>';
+            color: var(--accent);
+            margin-right: 0.75rem;
+            opacity: 0.5;
+        }
+
+        /* ── CONTACT ── */
+        .contact-section {
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-form {
+            margin-top: 2rem;
+            max-width: 440px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.8rem;
+            margin-bottom: 0.75rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .contact-form button {
+            padding: 0.7rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .contact-form button:hover {
+            border-color: var(--accent);
+            color: var(--text);
+            background: rgba(0, 255, 65, 0.05);
+        }
+
+        .contact-form .form-msg {
+            font-size: 0.75rem;
+            margin-top: 0.75rem;
+            color: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .contact-form .form-msg.visible {
+            opacity: 1;
+        }
+
+        .cf-turnstile {
+            margin-bottom: 0.75rem;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            opacity: 0.4;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Scroll-driven mechanical rails: native scrolling stays in control. */
+        :root { --scroll-distance: 0px; }
+        .drive { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+        .drive-side { position: absolute; top: 0; bottom: 0; width: 190px; }
+        .drive-left { left: 0; }
+        .drive-right { right: 0; transform: scaleX(-1); }
+        .rack { position: absolute; left: 124px; width: 17px; top: -24px; bottom: -24px; border-left: 2px solid #31523a; background: repeating-linear-gradient(to bottom, #31523a 0 8px, transparent 8px 24px); background-position: 0 var(--scroll-distance); opacity: .55; }
+        .cog { position: absolute; width: 244px; height: 244px; left: -111px; top: calc(50% - 122px); color: #31523a; will-change: transform; }
+        .cog svg { display: block; width: 100%; height: 100%; overflow: visible; }
+        .cog-small { width: 122px; height: 122px; left: -50px; top: calc(50% + 111px); color: #243e2b; }
+        .engineering-mark { color: var(--accent); font-size: .8rem; letter-spacing: .25em; margin-bottom: 2rem; border: 1px solid #31523a; padding: .65rem 1rem; }
+        .engineering-mark span { opacity: .35; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 4.75rem); max-width: 900px; }
+        .hero h1 span { display: block; color: #8eaf94; }
+        .tagline { color: #8eaf94; }
+        .section-text, .venture p, .ethos-list li { color: #8eaf94; }
+        .scroll-hint { color: #8eaf94; }
+        .scroll-hint::after { content: ' ↓'; color: var(--accent); }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        @media (max-width: 1000px) {
+            .drive-side { opacity: .6; }
+            .drive-left { left: -70px; }
+            .drive-right { right: -70px; }
+            section { max-width: calc(100% - 150px); }
+        }
+        @media (max-width: 600px) {
+            .drive-side { opacity: .45; }
+            .drive-left { left: -103px; }
+            .drive-right { right: -103px; }
+            section { max-width: 100%; padding: 4rem 2.75rem; }
+            .hero { padding: 2rem 2.75rem; }
+            .hero h1 { font-size: clamp(1.8rem, 8vw, 2.8rem); }
+            .tagline { max-width: 260px; font-size: .8rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .scroll-hint { animation: none; }
+            .cog { will-change: auto; }
+        }
+        .service-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); margin:2rem 0; border-radius:8px; overflow:hidden; }
+        .service-enquiry { display:block; color:var(--accent); font-size:.74rem; margin-top:1.5rem; text-underline-offset:4px; }
+        .primary-link { display:inline-block; position:relative; z-index:1; color:var(--accent); padding:.8rem 1rem; border:1px solid #31523a; border-radius:4px; font-size:.8rem; text-decoration:none; }
+        .venture h3 { font-size:1rem; } .venture p { font-size:.82rem; } .section-text { font-size:.9rem; }
+        .hero .section-text { position:relative; z-index:1; }
+        @media(max-width:640px) { .service-grid { grid-template-columns:1fr; } }
+        .site-header { position:relative; z-index:2; max-width:1000px; margin:auto; padding:1.5rem 2.5rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; border-bottom:1px solid var(--border); }
+        .wordmark { color:var(--accent); font-size:1rem; font-weight:700; text-decoration:none; } .wordmark span { color:#8eaf94; font-size:.75rem; font-weight:400; }
+        nav { display:flex; gap:1.4rem; flex-wrap:wrap; } nav a { color:#b4ceb8; font-size:.75rem; text-decoration:none; } nav a:hover,nav a[aria-current="page"] { color:var(--accent); }
+        .hero { min-height:calc(100svh - 80px); } .service-grid.pillars { grid-template-columns:1fr; } .pillars .venture { padding:2.2rem; } .pillars h3 { font-size:1.65rem; } .pillars p { max-width:580px; }
+        .page-hero { min-height:65svh; } .page-hero h1 { font-size:clamp(3rem,8vw,6rem); } .page-hero .tagline { max-width:580px; }
+        .notice { border-left:2px solid var(--accent-dim); padding:1rem 1.5rem; background:var(--surface); margin-top:2rem; color:#8eaf94; font-size:.8rem; }
+        footer { opacity:1; color:#8eaf94; } footer span { display:block; margin-top:.5rem; font-size:.65rem; color:#8eaf94; }
+        @media(max-width:600px) { .site-header { padding:1.25rem 2.75rem; flex-direction:column; align-items:flex-start; } nav { gap:1rem; } .hero { min-height:80svh; } .page-hero { min-height:60svh; } }
+
+        /* Service schematics respond to scroll; all artwork is decorative. */
+        :root { --motif-progress:0; --motif-offset:0px; --part-gap:44px; --part-shift:-70px; --fault-opacity:1; --repair-opacity:0; }
+        .service-art { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+        .schematic-side { position:absolute; top:50%; left:-16px; width:190px; height:520px; transform:translateY(-50%); opacity:.78; }
+        .schematic-side.art-right { left:auto; right:-16px; transform:translateY(-50%) scaleX(-1); }
+        .schematic-side svg { width:100%; height:100%; overflow:visible; fill:none; stroke:#385f44; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+        .schematic-side .guide { stroke:#233d2b; stroke-dasharray:3 7; stroke-width:1; }
+        .schematic-side .detail { stroke:#3b6748; stroke-width:1; }
+        .schematic-side .lit { stroke:#00d840; }
+        .schematic-side .plate { fill:#0b130d; }
+        .schematic-side .fault { stroke:#bd9464; opacity:var(--fault-opacity); }
+        .schematic-side .repaired { opacity:var(--repair-opacity); }
+        .schematic-side .replacement { transform:translateX(var(--part-shift)); }
+        .schematic-side .build-cover { transform:translateY(calc(var(--part-gap) * -1.8)); }
+        .schematic-side .build-board { transform:translateY(calc(var(--part-gap) * -0.5)); }
+        .schematic-side .build-base { transform:translateY(var(--part-gap)); }
+        .schematic-side .build-fasteners { transform:translateY(calc(var(--part-gap) * -2.2)); }
+        .schematic-side .data-flow { stroke:#00d840; stroke-dasharray:5 34; stroke-dashoffset:var(--motif-offset); opacity:.85; }
+        .schematic-side .data-block { fill:#00b336; stroke:none; opacity:.65; }
+        @media(max-width:1000px) { .schematic-side { left:-75px; opacity:.5; } .schematic-side.art-right { right:-75px; } }
+        @media(max-width:600px) { .schematic-side { left:-135px; opacity:.3; } .schematic-side.art-right { right:-135px; } }
+        @media(prefers-reduced-motion:reduce) { .schematic-side { will-change:auto; } }
+    </style>
+</head>
+<body>
+
+    <header class="site-header"><a class="wordmark" href="/">PE<span> / Engineering</span></a><nav aria-label="Main navigation"><a href="/repair/" aria-current="page">Repair</a><a href="/build/">Build</a><a href="/automate/">Automate</a><a href="#contact">Enquire</a></nav></header>
+    <div class="service-art" aria-hidden="true"><div class="schematic-side"><svg viewBox="0 0 190 520"><path class="guide" d="M95 0V520M12 70H178M12 450H178"/><circle cx="95" cy="58" r="16"/><circle cx="95" cy="58" r="5"/><path d="M95 74V130H44V187H95V218M95 130H148V190H117M44 187V338H95V374M95 294V338H148V256H128M95 390V448"/><path class="detail" d="M35 150H53M35 157H53M139 157H157M139 164H157"/><rect class="plate" x="71" y="218" width="48" height="76" rx="3"/><path class="fault" d="M81 231L106 246L85 260L109 278M72 218L118 294M119 218L72 294"/><g class="repaired"><path class="lit" d="M95 74V130H44V187H95V218M95 294V338H148V256H128M95 338V448"/></g><g class="replacement repaired"><rect class="plate lit" x="71" y="218" width="48" height="76" rx="3"/><path class="detail" d="M78 230H112M78 282H112M71 239H63M71 251H63M71 263H63M119 239H127M119 251H127M119 263H127"/><path class="lit" d="M84 255L92 263L108 246"/></g><circle cx="95" cy="382" r="8"/><circle class="repaired lit" cx="95" cy="382" r="3"/><circle cx="95" cy="464" r="16"/><path class="detail" d="M89 464H101M95 458V470M18 204H32M25 197V211M153 312H167M160 305V319"/></svg></div><div class="schematic-side art-right"><svg viewBox="0 0 190 520"><path class="guide" d="M95 0V520M12 70H178M12 450H178"/><circle cx="95" cy="58" r="16"/><circle cx="95" cy="58" r="5"/><path d="M95 74V130H44V187H95V218M95 130H148V190H117M44 187V338H95V374M95 294V338H148V256H128M95 390V448"/><path class="detail" d="M35 150H53M35 157H53M139 157H157M139 164H157"/><rect class="plate" x="71" y="218" width="48" height="76" rx="3"/><path class="fault" d="M81 231L106 246L85 260L109 278M72 218L118 294M119 218L72 294"/><g class="repaired"><path class="lit" d="M95 74V130H44V187H95V218M95 294V338H148V256H128M95 338V448"/></g><g class="replacement repaired"><rect class="plate lit" x="71" y="218" width="48" height="76" rx="3"/><path class="detail" d="M78 230H112M78 282H112M71 239H63M71 251H63M71 263H63M119 239H127M119 251H127M119 263H127"/><path class="lit" d="M84 255L92 263L108 246"/></g><circle cx="95" cy="382" r="8"/><circle class="repaired lit" cx="95" cy="382" r="3"/><circle cx="95" cy="464" r="16"/><path class="detail" d="M89 464H101M95 458V470M18 204H32M25 197V211M153 312H167M160 305V319"/></svg></div></div>
+    <div class="hero page-hero"><div class="engineering-mark">PE / REPAIR</div><h1>Repair</h1><p class="tagline">Find the fault. Restore function.</p><p class="section-text" style="text-align:center;margin-bottom:2rem">Electronics, wiring and connected-equipment troubleshooting. Start with the symptoms, the equipment and the result you need.</p><a class="primary-link" href="#contact">Discuss your project →</a></div>
+<main><section><div class="section-label">Repair / Project enquiries</div><h2>Find the fault. Restore function.</h2><div class="service-grid"><article class="venture"><div class="venture-icon">01</div><h3>Equipment assessment</h3><p>A scoped investigation into a fault, with findings, test results where applicable and recommended next steps. Repair feasibility is assessed before a repair is agreed.</p><a class="service-enquiry" href="#contact" data-service="Equipment assessment">Request an assessment →</a></article><article class="venture"><div class="venture-icon">02</div><h3>Wiring & communications</h3><p>Project enquiries for wiring faults, connectors and equipment communications. Include the interface, symptoms and any available diagrams or logs.</p><a class="service-enquiry" href="#contact" data-service="Wiring & communications">Describe the fault →</a></article><article class="venture"><div class="venture-icon">03</div><h3>Repeat repair work</h3><p>Trade enquiries for recurring faults in a defined equipment family. We establish the test method, repair scope and acceptance checks before offering a repeat service.</p><a class="service-enquiry" href="#contact" data-service="Repeat repair work">Discuss a repeat repair →</a></article><article class="venture"><div class="venture-icon">04</div><h3>Vehicle & onboard systems</h3><p>Displays, controllers and auxiliary electronics. Work is assessed against the equipment and access requirements; no manufacturer affiliation is implied.</p><a class="service-enquiry" href="#contact" data-service="Vehicle & onboard systems">Discuss onboard equipment →</a></article></div><div class="notice">Send the model, fault symptoms, what has already been checked, and clear photographs. Please agree acceptance and delivery arrangements before sending equipment.</div></section><section><div class="section-label">Explore the other capabilities</div><p class="section-text"><a class="service-enquiry" href="/repair/">Repair →</a><a class="service-enquiry" href="/build/">Build →</a><a class="service-enquiry" href="/automate/">Automate →</a></p></section></main>
+    <!-- CONTACT -->
+    <section class="contact-section" id="contact">
+        <div class="section-label">Contact</div>
+        <h2>What do you need to build or fix?</h2>
+        <p class="section-text">Include the equipment or file type, the problem, quantities where relevant, and the result you need. We’ll assess the fit before agreeing any work.</p>
+        <form class="contact-form" id="contactForm" action="/api/contact" method="POST">
+            <input aria-label="Your email" type="email" name="email" placeholder="your@email.com" required />
+            <textarea aria-label="Your message" name="message" placeholder="Equipment, project, batch size or tool you need…" required></textarea>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAACyvf6eIigaQvDWP" data-theme="dark"></div>
+            <button type="submit">Send message</button>
+            <p class="form-msg" id="formMsg"></p>
+        </form>
+    </section>
+
+    <footer>&copy; 2026 Pevreall Engineering<span>Pevreall Technologies Group · Repair / Build / Automate</span></footer>
+
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script>
+        document.querySelectorAll('[data-service]').forEach(link => link.addEventListener('click', () => {
+            document.querySelector('textarea[name="message"]').value = 'Enquiry: ' + link.dataset.service + '\n\n';
+        }));
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const msg = document.getElementById('formMsg');
+            const btn = form.querySelector('button');
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+            try {
+                const res = await fetch('/api/contact', {
+                    method: 'POST',
+                    body: new FormData(form)
+                });
+                if (res.ok) {
+                    msg.textContent = 'Message sent.';
+                    msg.classList.add('visible');
+                    form.reset();
+                    turnstile.reset();
+                } else {
+                    msg.textContent = 'Something went wrong. Try again.';
+                    msg.classList.add('visible');
+                }
+            } catch {
+                msg.textContent = 'Something went wrong. Try again.';
+                msg.classList.add('visible');
+            }
+            btn.textContent = 'Send message';
+            btn.disabled = false;
+        });
+    </script>
+
+    <script>
+    (() => {
+        const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+        let pending = false;
+        function render() {
+            pending = false;
+            const y = reduced.matches ? 0 : window.scrollY;
+            const progress = reduced.matches ? 1 : Math.min(1, Math.max(0, y / Math.max(450, innerHeight * .85)));
+            const root = document.documentElement.style;
+            root.setProperty('--motif-progress', progress);
+            root.setProperty('--part-gap', `${44 * (1-progress)}px`);
+            root.setProperty('--part-shift', `${-70 * (1-progress)}px`);
+            root.setProperty('--fault-opacity', `${1-progress}`);
+            root.setProperty('--repair-opacity', `${progress}`);
+            root.setProperty('--motif-offset', `${-y * .22}px`);
+        }
+        addEventListener('scroll', () => { if (!pending) { pending=true; requestAnimationFrame(render); } }, {passive:true});
+        addEventListener('resize', render);
+        reduced.addEventListener('change', render);
+        render();
+    })();
+    </script>
+</body>
+</html>

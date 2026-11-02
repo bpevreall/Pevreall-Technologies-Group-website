@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pevreall Technologies Group</title>
-    <meta name="description" content="Pevreall Technologies Group - Technology ventures across finance, health and data.">
+    <title>Pevreall Engineering</title>
+    <meta name="description" content="Pevreall Engineering — electronics assembly, diagnostics, embedded systems and practical automation.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -338,80 +338,109 @@
             position: relative;
             z-index: 1;
         }
+
+        /* Scroll-driven mechanical rails: native scrolling stays in control. */
+        :root { --scroll-distance: 0px; }
+        .drive { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+        .drive-side { position: absolute; top: 0; bottom: 0; width: 190px; }
+        .drive-left { left: 0; }
+        .drive-right { right: 0; transform: scaleX(-1); }
+        .rack { position: absolute; left: 124px; width: 17px; top: -24px; bottom: -24px; border-left: 2px solid #31523a; background: repeating-linear-gradient(to bottom, #31523a 0 8px, transparent 8px 24px); background-position: 0 var(--scroll-distance); opacity: .55; }
+        .cog { position: absolute; width: 244px; height: 244px; left: -111px; top: calc(50% - 122px); color: #31523a; will-change: transform; }
+        .cog svg { display: block; width: 100%; height: 100%; overflow: visible; }
+        .cog-small { width: 122px; height: 122px; left: -50px; top: calc(50% + 111px); color: #243e2b; }
+        .engineering-mark { color: var(--accent); font-size: .8rem; letter-spacing: .25em; margin-bottom: 2rem; border: 1px solid #31523a; padding: .65rem 1rem; }
+        .engineering-mark span { opacity: .35; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 4.75rem); max-width: 900px; }
+        .hero h1 span { display: block; color: #8eaf94; }
+        .tagline { color: #8eaf94; }
+        .section-text, .venture p, .ethos-list li { color: #8eaf94; }
+        .scroll-hint { color: #8eaf94; }
+        .scroll-hint::after { content: ' ↓'; color: var(--accent); }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        @media (max-width: 1000px) {
+            .drive-side { opacity: .6; }
+            .drive-left { left: -70px; }
+            .drive-right { right: -70px; }
+            section { max-width: calc(100% - 150px); }
+        }
+        @media (max-width: 600px) {
+            .drive-side { opacity: .45; }
+            .drive-left { left: -103px; }
+            .drive-right { right: -103px; }
+            section { max-width: 100%; padding: 4rem 2.75rem; }
+            .hero { padding: 2rem 2.75rem; }
+            .hero h1 { font-size: clamp(1.8rem, 8vw, 2.8rem); }
+            .tagline { max-width: 260px; font-size: .8rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .scroll-hint { animation: none; }
+            .cog { will-change: auto; }
+        }
+        .service-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); margin:2rem 0; border-radius:8px; overflow:hidden; }
+        .service-enquiry { display:block; color:var(--accent); font-size:.74rem; margin-top:1.5rem; text-underline-offset:4px; }
+        .primary-link { display:inline-block; position:relative; z-index:1; color:var(--accent); padding:.8rem 1rem; border:1px solid #31523a; border-radius:4px; font-size:.8rem; text-decoration:none; }
+        .venture h3 { font-size:1rem; } .venture p { font-size:.82rem; } .section-text { font-size:.9rem; }
+        .hero .section-text { position:relative; z-index:1; }
+        @media(max-width:640px) { .service-grid { grid-template-columns:1fr; } }
+        .site-header { position:relative; z-index:2; max-width:1000px; margin:auto; padding:1.5rem 2.5rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; border-bottom:1px solid var(--border); }
+        .wordmark { color:var(--accent); font-size:1rem; font-weight:700; text-decoration:none; } .wordmark span { color:#8eaf94; font-size:.75rem; font-weight:400; }
+        nav { display:flex; gap:1.4rem; flex-wrap:wrap; } nav a { color:#b4ceb8; font-size:.75rem; text-decoration:none; } nav a:hover,nav a[aria-current="page"] { color:var(--accent); }
+        .hero { min-height:calc(100svh - 80px); } .service-grid.pillars { grid-template-columns:1fr; } .pillars .venture { padding:2.2rem; } .pillars h3 { font-size:1.65rem; } .pillars p { max-width:580px; }
+        .page-hero { min-height:65svh; } .page-hero h1 { font-size:clamp(3rem,8vw,6rem); } .page-hero .tagline { max-width:580px; }
+        .notice { border-left:2px solid var(--accent-dim); padding:1rem 1.5rem; background:var(--surface); margin-top:2rem; color:#8eaf94; font-size:.8rem; }
+        footer { opacity:1; color:#8eaf94; } footer span { display:block; margin-top:.5rem; font-size:.65rem; color:#8eaf94; }
+        @media(max-width:600px) { .site-header { padding:1.25rem 2.75rem; flex-direction:column; align-items:flex-start; } nav { gap:1rem; } .hero { min-height:80svh; } .page-hero { min-height:60svh; } }
     </style>
 </head>
 <body>
 
+    <header class="site-header"><a class="wordmark" href="/">PE<span> / Engineering</span></a><nav aria-label="Main navigation"><a href="/repair/">Repair</a><a href="/build/">Build</a><a href="/automate/">Automate</a><a href="#contact">Enquire</a></nav></header>
+    <div class="drive" aria-hidden="true"><div class="drive-side drive-left"><div class="rack"></div><div class="cog cog-large"></div><div class="cog cog-small"></div></div><div class="drive-side drive-right"><div class="rack"></div><div class="cog cog-large"></div><div class="cog cog-small"></div></div></div>
     <!-- HERO -->
     <div class="hero">
-        <div class="logo">
-            <img src="logo.PNG" alt="Pevreall Technologies Group" />
-        </div>
-        <h1>Pevreall Technologies <span>Group</span></h1>
-        <p class="tagline">Technology ventures across finance, health &amp; data.</p>
-        <div class="scroll-hint">scroll</div>
+        <div class="engineering-mark" aria-hidden="true">PE<span> / </span>01</div>
+        <h1>Pevreall <span>Engineering</span></h1>
+        <p class="tagline">Repair. Build. Automate.</p>
+        <p class="section-text" style="text-align:center;margin-bottom:2rem">Repair what’s broken. Build what’s needed. Automate what repeats.</p><a class="primary-link" href="#services">Explore our capabilities ↓</a><div class="scroll-hint">scroll</div>
     </div>
 
-    <!-- VENTURES -->
-    <section>
-        <div class="section-label">Ventures</div>
-        <h2>What we're building</h2>
-        <p class="section-text">We build and operate technology platforms across industries where software can make a real difference. Each venture runs independently under the group.</p>
-
-        <div class="ventures">
-            <a href="/pev-expense-os" class="venture venture-link">
-                <div class="venture-icon">&pound;</div>
-                <h3>Pev_ExpenseOS</h3>
-                <p>AI-powered receipt processing and expense management pipeline.</p>
-                <span class="status">in development →</span>
-            </a>
-            <div class="venture">
-                <div class="venture-icon">+</div>
-                <h3>Healthtech</h3>
-                <p>Connecting patients to prescribers in underserved healthcare markets.</p>
-                <span class="status">in development</span>
-            </div>
-            <div class="venture">
-                <div class="venture-icon">&lambda;</div>
-                <h3>Quantitative Systems</h3>
-                <p>Automated trading infrastructure with machine learning at the management layer.</p>
-                <span class="status">in development</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ETHOS -->
-    <section>
-        <div class="section-label">Approach</div>
-        <h2>How we work</h2>
-        <p class="section-text">Small team, high leverage. We build with modern tooling and ship fast.</p>
-
-        <ul class="ethos-list">
-            <li>Build platforms, not services</li>
-            <li>Automate everything that can be automated</li>
-            <li>Stay lean until the product proves itself</li>
-            <li>Own the stack end to end</li>
-        </ul>
-    </section>
-
+    <main>
+    <section id="services"><div class="section-label">Three ways we help</div><h2>From a failed component to a better system.</h2><p class="section-text">Practical engineering across hardware and software. Choose the work you need, then we’ll define the scope together.</p><div class="service-grid pillars">
+    <a class="venture venture-link" href="/repair/"><div class="venture-icon">01 / REPAIR</div><h3>Find the fault. Restore function.</h3><p>Electronics and wiring diagnostics, equipment assessment and repair enquiries. A clear investigation, documented findings and an agreed next step.</p><span class="status">Explore repair →</span></a>
+    <a class="venture venture-link" href="/build/"><div class="venture-icon">02 / BUILD</div><h3>Turn a specification into something real.</h3><p>Cable assemblies, wiring looms, electromechanical assembly, embedded systems and integration. One-off prototypes or repeat trade work.</p><span class="status">Explore build →</span></a>
+    <a class="venture venture-link" href="/automate/"><div class="venture-icon">03 / AUTOMATE</div><h3>Make the repeat work run itself.</h3><p>Reporting tools, document processing, AI agents and workflow integrations. Plus a development roadmap for self-service engineering tools.</p><span class="status">Explore automation →</span></a>
+    </div></section>
+    <section id="projects"><div class="section-label">Projects & direction</div><h2>Built from real problems.</h2><div class="service-grid">
+    <a href="/pev-expense-os" class="venture venture-link"><div class="venture-icon">£</div><h3>Pev_ExpenseOS</h3><p>A receipt-processing and expense-management project. Explore the product page and screenshots.</p><span class="status">In development →</span></a>
+    <article class="venture"><div class="venture-icon">I/O</div><h3>Field diagnostic tools</h3><p>Development direction: interfaces and software that bring equipment communications and captured data into a clearer troubleshooting workflow.</p><span class="status">Development direction</span></article>
+    <article class="venture"><div class="venture-icon">PROP</div><h3>Property development</h3><p>A future group venture being explored alongside the engineering business. The project model, scope and first opportunity are in planning.</p><span class="status">Venture planning</span></article>
+    <article class="venture"><div class="venture-icon">SEA</div><h3>Marine electronics</h3><p>Expansion interest: onboard electronics and connected systems. Specific marine work will be assessed individually before a service is offered.</p><span class="status">Exploring</span></article>
+    </div></section>
+    <section><div class="section-label">Approach</div><h2>A defined job. A useful result.</h2><ul class="ethos-list"><li>Understand the fault, specification or workflow first.</li><li>Agree scope, deliverables and acceptance checks.</li><li>Build a repeatable process where the work repeats.</li><li>Document findings and explain the next step clearly.</li></ul></section>
+    </main>
     <!-- CONTACT -->
-    <section class="contact-section">
+    <section class="contact-section" id="contact">
         <div class="section-label">Contact</div>
-        <h2>Get in touch</h2>
-        <p class="section-text">We're not taking on clients. If you want to talk about what we're building, reach out.</p>
+        <h2>What do you need to build or fix?</h2>
+        <p class="section-text">Include the equipment or file type, the problem, quantities where relevant, and the result you need. We’ll assess the fit before agreeing any work.</p>
         <form class="contact-form" id="contactForm" action="/api/contact" method="POST">
-            <input type="email" name="email" placeholder="your@email.com" required />
-            <textarea name="message" placeholder="What's on your mind?" required></textarea>
+            <input aria-label="Your email" type="email" name="email" placeholder="your@email.com" required />
+            <textarea aria-label="Your message" name="message" placeholder="Equipment, project, batch size or tool you need…" required></textarea>
             <div class="cf-turnstile" data-sitekey="0x4AAAAAACyvf6eIigaQvDWP" data-theme="dark"></div>
             <button type="submit">Send message</button>
             <p class="form-msg" id="formMsg"></p>
         </form>
     </section>
 
-    <footer>&copy; 2026 Pevreall Technologies Group</footer>
+    <footer>&copy; 2026 Pevreall Engineering<span>Pevreall Technologies Group · Repair / Build / Automate</span></footer>
 
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
+        document.querySelectorAll('[data-service]').forEach(link => link.addEventListener('click', () => {
+            document.querySelector('textarea[name="message"]').value = 'Enquiry: ' + link.dataset.service + '\n\n';
+        }));
         document.getElementById('contactForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const form = e.target;
@@ -440,6 +469,40 @@
             btn.textContent = 'Send message';
             btn.disabled = false;
         });
+    </script>
+
+    <script>
+        (() => {
+            // 30 teeth at 24px pitch: rack travel and gear rotation stay linked.
+            const gear = (teeth) => {
+                const points = [];
+                for (let t = 0; t < teeth; t++) {
+                    for (const [fraction, radius] of [[0,108],[.18,108],[.28,120],[.72,120],[.82,108]]) {
+                        const a = (t + fraction) * Math.PI * 2 / teeth;
+                        points.push(`${122 + Math.cos(a)*radius},${122 + Math.sin(a)*radius}`);
+                    }
+                }
+                return `<svg viewBox="0 0 244 244" fill="none" stroke="currentColor" stroke-width="2"><polygon points="${points.join(' ')}" fill="#0a100b"/><circle cx="122" cy="122" r="80"/><circle cx="122" cy="122" r="27"/><path d="M122 42V95M122 149V202M42 122H95M149 122H202"/><circle cx="122" cy="122" r="7" fill="currentColor"/></svg>`;
+            };
+            document.querySelectorAll('.cog-large').forEach(el => el.innerHTML = gear(30));
+            document.querySelectorAll('.cog-small').forEach(el => el.innerHTML = gear(15));
+            const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+            const large = document.querySelectorAll('.cog-large');
+            const small = document.querySelectorAll('.cog-small');
+            let pending = false;
+            function render() {
+                pending = false;
+                const y = reduced.matches ? 0 : window.scrollY;
+                document.documentElement.style.setProperty('--scroll-distance', `${-y % 24}px`);
+                large.forEach(el => el.style.transform = `rotate(${-y / 2}deg)`);
+                small.forEach(el => el.style.transform = `rotate(${y + 12}deg)`);
+            }
+            addEventListener('scroll', () => {
+                if (!pending) { pending = true; requestAnimationFrame(render); }
+            }, {passive: true});
+            reduced.addEventListener('change', render);
+            render();
+        })();
     </script>
 </body>
 </html>
