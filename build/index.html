@@ -392,12 +392,35 @@
         .notice { border-left:2px solid var(--accent-dim); padding:1rem 1.5rem; background:var(--surface); margin-top:2rem; color:#8eaf94; font-size:.8rem; }
         footer { opacity:1; color:#8eaf94; } footer span { display:block; margin-top:.5rem; font-size:.65rem; color:#8eaf94; }
         @media(max-width:600px) { .site-header { padding:1.25rem 2.75rem; flex-direction:column; align-items:flex-start; } nav { gap:1rem; } .hero { min-height:80svh; } .page-hero { min-height:60svh; } }
+
+        /* Service schematics respond to scroll; all artwork is decorative. */
+        :root { --motif-progress:0; --motif-offset:0px; --part-gap:44px; --part-shift:-70px; --fault-opacity:1; --repair-opacity:0; }
+        .service-art { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+        .schematic-side { position:absolute; top:50%; left:-16px; width:190px; height:520px; transform:translateY(-50%); opacity:.78; }
+        .schematic-side.art-right { left:auto; right:-16px; transform:translateY(-50%) scaleX(-1); }
+        .schematic-side svg { width:100%; height:100%; overflow:visible; fill:none; stroke:#385f44; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+        .schematic-side .guide { stroke:#233d2b; stroke-dasharray:3 7; stroke-width:1; }
+        .schematic-side .detail { stroke:#3b6748; stroke-width:1; }
+        .schematic-side .lit { stroke:#00d840; }
+        .schematic-side .plate { fill:#0b130d; }
+        .schematic-side .fault { stroke:#bd9464; opacity:var(--fault-opacity); }
+        .schematic-side .repaired { opacity:var(--repair-opacity); }
+        .schematic-side .replacement { transform:translateX(var(--part-shift)); }
+        .schematic-side .build-cover { transform:translateY(calc(var(--part-gap) * -1.8)); }
+        .schematic-side .build-board { transform:translateY(calc(var(--part-gap) * -0.5)); }
+        .schematic-side .build-base { transform:translateY(var(--part-gap)); }
+        .schematic-side .build-fasteners { transform:translateY(calc(var(--part-gap) * -2.2)); }
+        .schematic-side .data-flow { stroke:#00d840; stroke-dasharray:5 34; stroke-dashoffset:var(--motif-offset); opacity:.85; }
+        .schematic-side .data-block { fill:#00b336; stroke:none; opacity:.65; }
+        @media(max-width:1000px) { .schematic-side { left:-75px; opacity:.5; } .schematic-side.art-right { right:-75px; } }
+        @media(max-width:600px) { .schematic-side { left:-135px; opacity:.3; } .schematic-side.art-right { right:-135px; } }
+        @media(prefers-reduced-motion:reduce) { .schematic-side { will-change:auto; } }
     </style>
 </head>
 <body>
 
     <header class="site-header"><a class="wordmark" href="/">PE<span> / Engineering</span></a><nav aria-label="Main navigation"><a href="/repair/">Repair</a><a href="/build/" aria-current="page">Build</a><a href="/automate/">Automate</a><a href="#contact">Enquire</a></nav></header>
-    <div class="drive" aria-hidden="true"><div class="drive-side drive-left"><div class="rack"></div><div class="cog cog-large"></div><div class="cog cog-small"></div></div><div class="drive-side drive-right"><div class="rack"></div><div class="cog cog-large"></div><div class="cog cog-small"></div></div></div>
+    <div class="service-art" aria-hidden="true"><div class="schematic-side"><svg viewBox="0 0 190 520"><path class="guide" d="M95 0V520M12 120H178M12 410H178"/><g class="build-base"><path class="plate" d="M26 303L95 270L166 303V351L96 385L26 351Z"/><path d="M26 303L96 337L166 303M96 337V385"/><path class="detail" d="M43 322V342L79 360M111 357L148 339M114 365L148 347"/><circle cx="48" cy="305" r="3"/><circle cx="143" cy="305" r="3"/></g><g class="build-board"><path class="plate" d="M33 276L95 246L158 276L96 307Z"/><path class="detail" d="M46 276L96 300L145 276M57 265L71 271L71 280M109 284L125 276L125 268"/><path class="lit" d="M79 271L95 263L112 271L96 279Z"/><path class="detail" d="M81 280L96 287L110 280M52 279L63 284M126 283L139 277"/></g><g class="build-cover"><path class="plate" d="M26 239L95 206L166 239V252L96 286L26 252Z"/><path d="M26 239L96 273L166 239M96 273V286"/><path class="detail" d="M62 238L94 223M72 243L104 228M82 248L114 233M92 253L124 238"/><circle cx="47" cy="239" r="3"/><circle cx="144" cy="239" r="3"/></g><g class="build-fasteners"><path d="M46 212V237M144 212V237"/><path class="plate" d="M39 207L46 203L53 207V213L46 217L39 213ZM137 207L144 203L151 207V213L144 217L137 213Z"/><path class="detail" d="M43 209H49M141 209H147"/></g><path class="detail" d="M16 433H174M16 429V437M174 429V437M35 85H55M45 75V95M140 462H160M150 452V472"/></svg></div><div class="schematic-side art-right"><svg viewBox="0 0 190 520"><path class="guide" d="M95 0V520M12 120H178M12 410H178"/><g class="build-base"><path class="plate" d="M26 303L95 270L166 303V351L96 385L26 351Z"/><path d="M26 303L96 337L166 303M96 337V385"/><path class="detail" d="M43 322V342L79 360M111 357L148 339M114 365L148 347"/><circle cx="48" cy="305" r="3"/><circle cx="143" cy="305" r="3"/></g><g class="build-board"><path class="plate" d="M33 276L95 246L158 276L96 307Z"/><path class="detail" d="M46 276L96 300L145 276M57 265L71 271L71 280M109 284L125 276L125 268"/><path class="lit" d="M79 271L95 263L112 271L96 279Z"/><path class="detail" d="M81 280L96 287L110 280M52 279L63 284M126 283L139 277"/></g><g class="build-cover"><path class="plate" d="M26 239L95 206L166 239V252L96 286L26 252Z"/><path d="M26 239L96 273L166 239M96 273V286"/><path class="detail" d="M62 238L94 223M72 243L104 228M82 248L114 233M92 253L124 238"/><circle cx="47" cy="239" r="3"/><circle cx="144" cy="239" r="3"/></g><g class="build-fasteners"><path d="M46 212V237M144 212V237"/><path class="plate" d="M39 207L46 203L53 207V213L46 217L39 213ZM137 207L144 203L151 207V213L144 217L137 213Z"/><path class="detail" d="M43 209H49M141 209H147"/></g><path class="detail" d="M16 433H174M16 429V437M174 429V437M35 85H55M45 75V95M140 462H160M150 452V472"/></svg></div></div>
     <div class="hero page-hero"><div class="engineering-mark">PE / BUILD</div><h1>Build</h1><p class="tagline">Turn a specification into something real.</p><p class="section-text" style="text-align:center;margin-bottom:2rem">Assembly, embedded systems and integration. Define the job once, then build a process that can repeat.</p><a class="primary-link" href="#contact">Discuss your project →</a></div>
 <main><section><div class="section-label">Build / Project enquiries</div><h2>Turn a specification into something real.</h2><div class="service-grid"><article class="venture"><div class="venture-icon">01</div><h3>Cable assemblies & wiring looms</h3><p>Build enquiries to an agreed drawing, connector specification and test requirement. Include quantities, lengths, pinouts and environmental requirements.</p><a class="service-enquiry" href="#contact" data-service="Cable assemblies & wiring looms">Send a loom specification →</a></article><article class="venture"><div class="venture-icon">02</div><h3>Electromechanical assembly</h3><p>Assembly and integration to a defined specification, from one-off prototypes to repeat batches. Agree supplied parts, workmanship requirements and checks upfront.</p><a class="service-enquiry" href="#contact" data-service="Electromechanical assembly">Request an assembly quote →</a></article><article class="venture"><div class="venture-icon">03</div><h3>Embedded systems</h3><p>Microcontrollers, sensors, interfaces and firmware for a defined task. Begin with feasibility, required inputs and outputs, and a scoped prototype.</p><a class="service-enquiry" href="#contact" data-service="Embedded systems">Discuss an embedded project →</a></article><article class="venture"><div class="venture-icon">04</div><h3>Trade & batch work</h3><p>Subcontract assembly, rework and functional testing enquiries. Define acceptance criteria and an agreed sample before a repeat batch.</p><a class="service-enquiry" href="#contact" data-service="Trade & batch work">Request a batch quote →</a></article></div><div class="notice">Send a drawing or description, target quantity, supplied components, required checks and timescale. Pricing follows a review of your requirements.</div></section><section><div class="section-label">Explore the other capabilities</div><p class="section-text"><a class="service-enquiry" href="/repair/">Repair →</a><a class="service-enquiry" href="/build/">Build →</a><a class="service-enquiry" href="/automate/">Automate →</a></p></section></main>
     <!-- CONTACT -->
@@ -452,37 +475,26 @@
     </script>
 
     <script>
-        (() => {
-            // 30 teeth at 24px pitch: rack travel and gear rotation stay linked.
-            const gear = (teeth) => {
-                const points = [];
-                for (let t = 0; t < teeth; t++) {
-                    for (const [fraction, radius] of [[0,108],[.18,108],[.28,120],[.72,120],[.82,108]]) {
-                        const a = (t + fraction) * Math.PI * 2 / teeth;
-                        points.push(`${122 + Math.cos(a)*radius},${122 + Math.sin(a)*radius}`);
-                    }
-                }
-                return `<svg viewBox="0 0 244 244" fill="none" stroke="currentColor" stroke-width="2"><polygon points="${points.join(' ')}" fill="#0a100b"/><circle cx="122" cy="122" r="80"/><circle cx="122" cy="122" r="27"/><path d="M122 42V95M122 149V202M42 122H95M149 122H202"/><circle cx="122" cy="122" r="7" fill="currentColor"/></svg>`;
-            };
-            document.querySelectorAll('.cog-large').forEach(el => el.innerHTML = gear(30));
-            document.querySelectorAll('.cog-small').forEach(el => el.innerHTML = gear(15));
-            const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-            const large = document.querySelectorAll('.cog-large');
-            const small = document.querySelectorAll('.cog-small');
-            let pending = false;
-            function render() {
-                pending = false;
-                const y = reduced.matches ? 0 : window.scrollY;
-                document.documentElement.style.setProperty('--scroll-distance', `${-y % 24}px`);
-                large.forEach(el => el.style.transform = `rotate(${-y / 2}deg)`);
-                small.forEach(el => el.style.transform = `rotate(${y + 12}deg)`);
-            }
-            addEventListener('scroll', () => {
-                if (!pending) { pending = true; requestAnimationFrame(render); }
-            }, {passive: true});
-            reduced.addEventListener('change', render);
-            render();
-        })();
+    (() => {
+        const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+        let pending = false;
+        function render() {
+            pending = false;
+            const y = reduced.matches ? 0 : window.scrollY;
+            const progress = reduced.matches ? 1 : Math.min(1, Math.max(0, y / Math.max(450, innerHeight * .85)));
+            const root = document.documentElement.style;
+            root.setProperty('--motif-progress', progress);
+            root.setProperty('--part-gap', `${44 * (1-progress)}px`);
+            root.setProperty('--part-shift', `${-70 * (1-progress)}px`);
+            root.setProperty('--fault-opacity', `${1-progress}`);
+            root.setProperty('--repair-opacity', `${progress}`);
+            root.setProperty('--motif-offset', `${-y * .22}px`);
+        }
+        addEventListener('scroll', () => { if (!pending) { pending=true; requestAnimationFrame(render); } }, {passive:true});
+        addEventListener('resize', render);
+        reduced.addEventListener('change', render);
+        render();
+    })();
     </script>
 </body>
 </html>

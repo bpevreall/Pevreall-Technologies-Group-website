@@ -392,12 +392,35 @@
         .notice { border-left:2px solid var(--accent-dim); padding:1rem 1.5rem; background:var(--surface); margin-top:2rem; color:#8eaf94; font-size:.8rem; }
         footer { opacity:1; color:#8eaf94; } footer span { display:block; margin-top:.5rem; font-size:.65rem; color:#8eaf94; }
         @media(max-width:600px) { .site-header { padding:1.25rem 2.75rem; flex-direction:column; align-items:flex-start; } nav { gap:1rem; } .hero { min-height:80svh; } .page-hero { min-height:60svh; } }
+
+        /* Service schematics respond to scroll; all artwork is decorative. */
+        :root { --motif-progress:0; --motif-offset:0px; --part-gap:44px; --part-shift:-70px; --fault-opacity:1; --repair-opacity:0; }
+        .service-art { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+        .schematic-side { position:absolute; top:50%; left:-16px; width:190px; height:520px; transform:translateY(-50%); opacity:.78; }
+        .schematic-side.art-right { left:auto; right:-16px; transform:translateY(-50%) scaleX(-1); }
+        .schematic-side svg { width:100%; height:100%; overflow:visible; fill:none; stroke:#385f44; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+        .schematic-side .guide { stroke:#233d2b; stroke-dasharray:3 7; stroke-width:1; }
+        .schematic-side .detail { stroke:#3b6748; stroke-width:1; }
+        .schematic-side .lit { stroke:#00d840; }
+        .schematic-side .plate { fill:#0b130d; }
+        .schematic-side .fault { stroke:#bd9464; opacity:var(--fault-opacity); }
+        .schematic-side .repaired { opacity:var(--repair-opacity); }
+        .schematic-side .replacement { transform:translateX(var(--part-shift)); }
+        .schematic-side .build-cover { transform:translateY(calc(var(--part-gap) * -1.8)); }
+        .schematic-side .build-board { transform:translateY(calc(var(--part-gap) * -0.5)); }
+        .schematic-side .build-base { transform:translateY(var(--part-gap)); }
+        .schematic-side .build-fasteners { transform:translateY(calc(var(--part-gap) * -2.2)); }
+        .schematic-side .data-flow { stroke:#00d840; stroke-dasharray:5 34; stroke-dashoffset:var(--motif-offset); opacity:.85; }
+        .schematic-side .data-block { fill:#00b336; stroke:none; opacity:.65; }
+        @media(max-width:1000px) { .schematic-side { left:-75px; opacity:.5; } .schematic-side.art-right { right:-75px; } }
+        @media(max-width:600px) { .schematic-side { left:-135px; opacity:.3; } .schematic-side.art-right { right:-135px; } }
+        @media(prefers-reduced-motion:reduce) { .schematic-side { will-change:auto; } }
     </style>
 </head>
 <body>
 
     <header class="site-header"><a class="wordmark" href="/">PE<span> / Engineering</span></a><nav aria-label="Main navigation"><a href="/repair/" aria-current="page">Repair</a><a href="/build/">Build</a><a href="/automate/">Automate</a><a href="#contact">Enquire</a></nav></header>
-    <div class="drive" aria-hidden="true"><div class="drive-side drive-left"><div class="rack"></div><div class="cog cog-large"></div><div class="cog cog-small"></div></div><div class="drive-side drive-right"><div class="rack"></div><div class="cog cog-large"></div><div class="cog cog-small"></div></div></div>
+    <div class="service-art" aria-hidden="true"><div class="schematic-side"><svg viewBox="0 0 190 520"><path class="guide" d="M95 0V520M12 70H178M12 450H178"/><circle cx="95" cy="58" r="16"/><circle cx="95" cy="58" r="5"/><path d="M95 74V130H44V187H95V218M95 130H148V190H117M44 187V338H95V374M95 294V338H148V256H128M95 390V448"/><path class="detail" d="M35 150H53M35 157H53M139 157H157M139 164H157"/><rect class="plate" x="71" y="218" width="48" height="76" rx="3"/><path class="fault" d="M81 231L106 246L85 260L109 278M72 218L118 294M119 218L72 294"/><g class="repaired"><path class="lit" d="M95 74V130H44V187H95V218M95 294V338H148V256H128M95 338V448"/></g><g class="replacement repaired"><rect class="plate lit" x="71" y="218" width="48" height="76" rx="3"/><path class="detail" d="M78 230H112M78 282H112M71 239H63M71 251H63M71 263H63M119 239H127M119 251H127M119 263H127"/><path class="lit" d="M84 255L92 263L108 246"/></g><circle cx="95" cy="382" r="8"/><circle class="repaired lit" cx="95" cy="382" r="3"/><circle cx="95" cy="464" r="16"/><path class="detail" d="M89 464H101M95 458V470M18 204H32M25 197V211M153 312H167M160 305V319"/></svg></div><div class="schematic-side art-right"><svg viewBox="0 0 190 520"><path class="guide" d="M95 0V520M12 70H178M12 450H178"/><circle cx="95" cy="58" r="16"/><circle cx="95" cy="58" r="5"/><path d="M95 74V130H44V187H95V218M95 130H148V190H117M44 187V338H95V374M95 294V338H148V256H128M95 390V448"/><path class="detail" d="M35 150H53M35 157H53M139 157H157M139 164H157"/><rect class="plate" x="71" y="218" width="48" height="76" rx="3"/><path class="fault" d="M81 231L106 246L85 260L109 278M72 218L118 294M119 218L72 294"/><g class="repaired"><path class="lit" d="M95 74V130H44V187H95V218M95 294V338H148V256H128M95 338V448"/></g><g class="replacement repaired"><rect class="plate lit" x="71" y="218" width="48" height="76" rx="3"/><path class="detail" d="M78 230H112M78 282H112M71 239H63M71 251H63M71 263H63M119 239H127M119 251H127M119 263H127"/><path class="lit" d="M84 255L92 263L108 246"/></g><circle cx="95" cy="382" r="8"/><circle class="repaired lit" cx="95" cy="382" r="3"/><circle cx="95" cy="464" r="16"/><path class="detail" d="M89 464H101M95 458V470M18 204H32M25 197V211M153 312H167M160 305V319"/></svg></div></div>
     <div class="hero page-hero"><div class="engineering-mark">PE / REPAIR</div><h1>Repair</h1><p class="tagline">Find the fault. Restore function.</p><p class="section-text" style="text-align:center;margin-bottom:2rem">Electronics, wiring and connected-equipment troubleshooting. Start with the symptoms, the equipment and the result you need.</p><a class="primary-link" href="#contact">Discuss your project →</a></div>
 <main><section><div class="section-label">Repair / Project enquiries</div><h2>Find the fault. Restore function.</h2><div class="service-grid"><article class="venture"><div class="venture-icon">01</div><h3>Equipment assessment</h3><p>A scoped investigation into a fault, with findings, test results where applicable and recommended next steps. Repair feasibility is assessed before a repair is agreed.</p><a class="service-enquiry" href="#contact" data-service="Equipment assessment">Request an assessment →</a></article><article class="venture"><div class="venture-icon">02</div><h3>Wiring & communications</h3><p>Project enquiries for wiring faults, connectors and equipment communications. Include the interface, symptoms and any available diagrams or logs.</p><a class="service-enquiry" href="#contact" data-service="Wiring & communications">Describe the fault →</a></article><article class="venture"><div class="venture-icon">03</div><h3>Repeat repair work</h3><p>Trade enquiries for recurring faults in a defined equipment family. We establish the test method, repair scope and acceptance checks before offering a repeat service.</p><a class="service-enquiry" href="#contact" data-service="Repeat repair work">Discuss a repeat repair →</a></article><article class="venture"><div class="venture-icon">04</div><h3>Vehicle & onboard systems</h3><p>Displays, controllers and auxiliary electronics. Work is assessed against the equipment and access requirements; no manufacturer affiliation is implied.</p><a class="service-enquiry" href="#contact" data-service="Vehicle & onboard systems">Discuss onboard equipment →</a></article></div><div class="notice">Send the model, fault symptoms, what has already been checked, and clear photographs. Please agree acceptance and delivery arrangements before sending equipment.</div></section><section><div class="section-label">Explore the other capabilities</div><p class="section-text"><a class="service-enquiry" href="/repair/">Repair →</a><a class="service-enquiry" href="/build/">Build →</a><a class="service-enquiry" href="/automate/">Automate →</a></p></section></main>
     <!-- CONTACT -->
@@ -452,37 +475,26 @@
     </script>
 
     <script>
-        (() => {
-            // 30 teeth at 24px pitch: rack travel and gear rotation stay linked.
-            const gear = (teeth) => {
-                const points = [];
-                for (let t = 0; t < teeth; t++) {
-                    for (const [fraction, radius] of [[0,108],[.18,108],[.28,120],[.72,120],[.82,108]]) {
-                        const a = (t + fraction) * Math.PI * 2 / teeth;
-                        points.push(`${122 + Math.cos(a)*radius},${122 + Math.sin(a)*radius}`);
-                    }
-                }
-                return `<svg viewBox="0 0 244 244" fill="none" stroke="currentColor" stroke-width="2"><polygon points="${points.join(' ')}" fill="#0a100b"/><circle cx="122" cy="122" r="80"/><circle cx="122" cy="122" r="27"/><path d="M122 42V95M122 149V202M42 122H95M149 122H202"/><circle cx="122" cy="122" r="7" fill="currentColor"/></svg>`;
-            };
-            document.querySelectorAll('.cog-large').forEach(el => el.innerHTML = gear(30));
-            document.querySelectorAll('.cog-small').forEach(el => el.innerHTML = gear(15));
-            const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-            const large = document.querySelectorAll('.cog-large');
-            const small = document.querySelectorAll('.cog-small');
-            let pending = false;
-            function render() {
-                pending = false;
-                const y = reduced.matches ? 0 : window.scrollY;
-                document.documentElement.style.setProperty('--scroll-distance', `${-y % 24}px`);
-                large.forEach(el => el.style.transform = `rotate(${-y / 2}deg)`);
-                small.forEach(el => el.style.transform = `rotate(${y + 12}deg)`);
-            }
-            addEventListener('scroll', () => {
-                if (!pending) { pending = true; requestAnimationFrame(render); }
-            }, {passive: true});
-            reduced.addEventListener('change', render);
-            render();
-        })();
+    (() => {
+        const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+        let pending = false;
+        function render() {
+            pending = false;
+            const y = reduced.matches ? 0 : window.scrollY;
+            const progress = reduced.matches ? 1 : Math.min(1, Math.max(0, y / Math.max(450, innerHeight * .85)));
+            const root = document.documentElement.style;
+            root.setProperty('--motif-progress', progress);
+            root.setProperty('--part-gap', `${44 * (1-progress)}px`);
+            root.setProperty('--part-shift', `${-70 * (1-progress)}px`);
+            root.setProperty('--fault-opacity', `${1-progress}`);
+            root.setProperty('--repair-opacity', `${progress}`);
+            root.setProperty('--motif-offset', `${-y * .22}px`);
+        }
+        addEventListener('scroll', () => { if (!pending) { pending=true; requestAnimationFrame(render); } }, {passive:true});
+        addEventListener('resize', render);
+        reduced.addEventListener('change', render);
+        render();
+    })();
     </script>
 </body>
 </html>

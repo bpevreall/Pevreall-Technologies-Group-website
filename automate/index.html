@@ -392,12 +392,35 @@
         .notice { border-left:2px solid var(--accent-dim); padding:1rem 1.5rem; background:var(--surface); margin-top:2rem; color:#8eaf94; font-size:.8rem; }
         footer { opacity:1; color:#8eaf94; } footer span { display:block; margin-top:.5rem; font-size:.65rem; color:#8eaf94; }
         @media(max-width:600px) { .site-header { padding:1.25rem 2.75rem; flex-direction:column; align-items:flex-start; } nav { gap:1rem; } .hero { min-height:80svh; } .page-hero { min-height:60svh; } }
+
+        /* Service schematics respond to scroll; all artwork is decorative. */
+        :root { --motif-progress:0; --motif-offset:0px; --part-gap:44px; --part-shift:-70px; --fault-opacity:1; --repair-opacity:0; }
+        .service-art { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+        .schematic-side { position:absolute; top:50%; left:-16px; width:190px; height:520px; transform:translateY(-50%); opacity:.78; }
+        .schematic-side.art-right { left:auto; right:-16px; transform:translateY(-50%) scaleX(-1); }
+        .schematic-side svg { width:100%; height:100%; overflow:visible; fill:none; stroke:#385f44; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+        .schematic-side .guide { stroke:#233d2b; stroke-dasharray:3 7; stroke-width:1; }
+        .schematic-side .detail { stroke:#3b6748; stroke-width:1; }
+        .schematic-side .lit { stroke:#00d840; }
+        .schematic-side .plate { fill:#0b130d; }
+        .schematic-side .fault { stroke:#bd9464; opacity:var(--fault-opacity); }
+        .schematic-side .repaired { opacity:var(--repair-opacity); }
+        .schematic-side .replacement { transform:translateX(var(--part-shift)); }
+        .schematic-side .build-cover { transform:translateY(calc(var(--part-gap) * -1.8)); }
+        .schematic-side .build-board { transform:translateY(calc(var(--part-gap) * -0.5)); }
+        .schematic-side .build-base { transform:translateY(var(--part-gap)); }
+        .schematic-side .build-fasteners { transform:translateY(calc(var(--part-gap) * -2.2)); }
+        .schematic-side .data-flow { stroke:#00d840; stroke-dasharray:5 34; stroke-dashoffset:var(--motif-offset); opacity:.85; }
+        .schematic-side .data-block { fill:#00b336; stroke:none; opacity:.65; }
+        @media(max-width:1000px) { .schematic-side { left:-75px; opacity:.5; } .schematic-side.art-right { right:-75px; } }
+        @media(max-width:600px) { .schematic-side { left:-135px; opacity:.3; } .schematic-side.art-right { right:-135px; } }
+        @media(prefers-reduced-motion:reduce) { .schematic-side { will-change:auto; } }
     </style>
 </head>
 <body>
 
     <header class="site-header"><a class="wordmark" href="/">PE<span> / Engineering</span></a><nav aria-label="Main navigation"><a href="/repair/">Repair</a><a href="/build/">Build</a><a href="/automate/" aria-current="page">Automate</a><a href="#contact">Enquire</a></nav></header>
-    <div class="drive" aria-hidden="true"><div class="drive-side drive-left"><div class="rack"></div><div class="cog cog-large"></div><div class="cog cog-small"></div></div><div class="drive-side drive-right"><div class="rack"></div><div class="cog cog-large"></div><div class="cog cog-small"></div></div></div>
+    <div class="service-art" aria-hidden="true"><div class="schematic-side"><svg viewBox="0 0 190 520"><path class="guide" d="M95 0V520M12 70H178M12 450H178"/><g class="plate"><rect x="16" y="66" width="35" height="44" rx="3"/><rect x="78" y="42" width="35" height="44" rx="3"/><rect x="140" y="66" width="35" height="44" rx="3"/></g><path class="detail" d="M24 78H42M24 87H42M24 96H35M86 54H104M86 63H104M86 72H97M148 78H166M148 87H166M148 96H159"/><path d="M34 110V164L95 201M95 86V201M157 110V164L95 201M95 201V226"/><path class="data-flow" d="M34 110V164L95 201V226M95 86V226M157 110V164L95 201V226"/><rect class="plate" x="58" y="226" width="74" height="76" rx="7"/><rect class="detail" x="72" y="240" width="46" height="48" rx="3"/><path class="lit" d="M80 263H87L92 253L100 274L106 263H112"/><path class="detail" d="M67 218V226M80 218V226M94 218V226M108 218V226M121 218V226M67 302V310M80 302V310M94 302V310M108 302V310M121 302V310M50 240H58M50 254H58M50 268H58M50 283H58M132 240H140M132 254H140M132 268H140M132 283H140"/><path d="M95 310V342L34 374V409M95 342V433M95 342L157 374V409"/><path class="data-flow" d="M95 310V342L34 374V409M95 342V433M95 342L157 374V409"/><g class="plate"><rect x="16" y="409" width="35" height="44" rx="3"/><rect x="78" y="433" width="35" height="44" rx="3"/><rect x="140" y="409" width="35" height="44" rx="3"/></g><path class="lit" d="M24 430L30 436L43 422M86 454L92 460L105 446M148 430L154 436L167 422"/></svg></div><div class="schematic-side art-right"><svg viewBox="0 0 190 520"><path class="guide" d="M95 0V520M12 70H178M12 450H178"/><g class="plate"><rect x="16" y="66" width="35" height="44" rx="3"/><rect x="78" y="42" width="35" height="44" rx="3"/><rect x="140" y="66" width="35" height="44" rx="3"/></g><path class="detail" d="M24 78H42M24 87H42M24 96H35M86 54H104M86 63H104M86 72H97M148 78H166M148 87H166M148 96H159"/><path d="M34 110V164L95 201M95 86V201M157 110V164L95 201M95 201V226"/><path class="data-flow" d="M34 110V164L95 201V226M95 86V226M157 110V164L95 201V226"/><rect class="plate" x="58" y="226" width="74" height="76" rx="7"/><rect class="detail" x="72" y="240" width="46" height="48" rx="3"/><path class="lit" d="M80 263H87L92 253L100 274L106 263H112"/><path class="detail" d="M67 218V226M80 218V226M94 218V226M108 218V226M121 218V226M67 302V310M80 302V310M94 302V310M108 302V310M121 302V310M50 240H58M50 254H58M50 268H58M50 283H58M132 240H140M132 254H140M132 268H140M132 283H140"/><path d="M95 310V342L34 374V409M95 342V433M95 342L157 374V409"/><path class="data-flow" d="M95 310V342L34 374V409M95 342V433M95 342L157 374V409"/><g class="plate"><rect x="16" y="409" width="35" height="44" rx="3"/><rect x="78" y="433" width="35" height="44" rx="3"/><rect x="140" y="409" width="35" height="44" rx="3"/></g><path class="lit" d="M24 430L30 436L43 422M86 454L92 460L105 446M148 430L154 436L167 422"/></svg></div></div>
     <div class="hero page-hero"><div class="engineering-mark">PE / AUTOMATE</div><h1>Automate</h1><p class="tagline">Make the repeat work run itself.</p><p class="section-text" style="text-align:center;margin-bottom:2rem">Connect tools, process information and remove repetitive steps. Start with one workflow and a result you can measure.</p><a class="primary-link" href="#contact">Discuss your project →</a></div>
 <main><section><div class="section-label">Automate / Project enquiries</div><h2>Make the repeat work run itself.</h2><div class="service-grid"><article class="venture"><div class="venture-icon">01</div><h3>Reporting & document processing</h3><p>Turn repeat data entry and document handling into a defined workflow, with review points where mistakes matter.</p><a class="service-enquiry" href="#contact" data-service="Reporting & document processing">Discuss a reporting workflow →</a></article><article class="venture"><div class="venture-icon">02</div><h3>AI agents & integrations</h3><p>Agents, tool connections and knowledge workflows built around a specific business task. Define permissions, failure handling and the required output.</p><a class="service-enquiry" href="#contact" data-service="AI agents & integrations">Map an agent workflow →</a></article><article class="venture"><div class="venture-icon">03</div><h3>Dashboards & small software tools</h3><p>Bring the information needed for a recurring job into one useful interface. Scope the data sources and the decisions the tool should support.</p><a class="service-enquiry" href="#contact" data-service="Dashboards & small software tools">Discuss a software tool →</a></article><article class="venture"><div class="venture-icon">04</div><h3>Repeatable data processing</h3><p>A candidate for self-service delivery: a supported input, deterministic checks and a downloadable result. Validate the format and useful output before productising it.</p><a class="service-enquiry" href="#contact" data-service="Repeatable data processing">Propose a processing tool →</a></article></div><div class="notice">Describe the task, how often it repeats, the input files or systems and what a successful output looks like. Include a sanitised example where possible.</div></section>    <section id="online"><div class="section-label">Online services / in development</div><h2>Upload a file. Get something useful back.</h2><p class="section-text">We’re developing automated engineering tools with defined inputs and clear outputs. These are planned products, not services currently available to purchase.</p><div class="service-grid">
     <article class="venture"><div class="venture-icon">BIN</div><h3>Firmware inspection</h3><p>Planned: file fingerprints, recognised embedded formats, extractable contents and entropy plots. Coverage will depend on the firmware format; no promise of unlocking or a complete security audit.</p><span class="status">Planned / register interest</span></article>
@@ -457,37 +480,26 @@
     </script>
 
     <script>
-        (() => {
-            // 30 teeth at 24px pitch: rack travel and gear rotation stay linked.
-            const gear = (teeth) => {
-                const points = [];
-                for (let t = 0; t < teeth; t++) {
-                    for (const [fraction, radius] of [[0,108],[.18,108],[.28,120],[.72,120],[.82,108]]) {
-                        const a = (t + fraction) * Math.PI * 2 / teeth;
-                        points.push(`${122 + Math.cos(a)*radius},${122 + Math.sin(a)*radius}`);
-                    }
-                }
-                return `<svg viewBox="0 0 244 244" fill="none" stroke="currentColor" stroke-width="2"><polygon points="${points.join(' ')}" fill="#0a100b"/><circle cx="122" cy="122" r="80"/><circle cx="122" cy="122" r="27"/><path d="M122 42V95M122 149V202M42 122H95M149 122H202"/><circle cx="122" cy="122" r="7" fill="currentColor"/></svg>`;
-            };
-            document.querySelectorAll('.cog-large').forEach(el => el.innerHTML = gear(30));
-            document.querySelectorAll('.cog-small').forEach(el => el.innerHTML = gear(15));
-            const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-            const large = document.querySelectorAll('.cog-large');
-            const small = document.querySelectorAll('.cog-small');
-            let pending = false;
-            function render() {
-                pending = false;
-                const y = reduced.matches ? 0 : window.scrollY;
-                document.documentElement.style.setProperty('--scroll-distance', `${-y % 24}px`);
-                large.forEach(el => el.style.transform = `rotate(${-y / 2}deg)`);
-                small.forEach(el => el.style.transform = `rotate(${y + 12}deg)`);
-            }
-            addEventListener('scroll', () => {
-                if (!pending) { pending = true; requestAnimationFrame(render); }
-            }, {passive: true});
-            reduced.addEventListener('change', render);
-            render();
-        })();
+    (() => {
+        const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+        let pending = false;
+        function render() {
+            pending = false;
+            const y = reduced.matches ? 0 : window.scrollY;
+            const progress = reduced.matches ? 1 : Math.min(1, Math.max(0, y / Math.max(450, innerHeight * .85)));
+            const root = document.documentElement.style;
+            root.setProperty('--motif-progress', progress);
+            root.setProperty('--part-gap', `${44 * (1-progress)}px`);
+            root.setProperty('--part-shift', `${-70 * (1-progress)}px`);
+            root.setProperty('--fault-opacity', `${1-progress}`);
+            root.setProperty('--repair-opacity', `${progress}`);
+            root.setProperty('--motif-offset', `${-y * .22}px`);
+        }
+        addEventListener('scroll', () => { if (!pending) { pending=true; requestAnimationFrame(render); } }, {passive:true});
+        addEventListener('resize', render);
+        reduced.addEventListener('change', render);
+        render();
+    })();
     </script>
 </body>
 </html>
