@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automate | Pevreall Engineering</title>
+    <meta name="description" content="Connect tools, process information and remove repetitive steps. Start with one workflow and a result you can measure.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0f0a;
+            --surface: #0d140d;
+            --border: #1a2e1a;
+            --text: #d0e8d0;
+            --text-muted: #4a7a4a;
+            --accent: #00ff41;
+            --accent-dim: #00cc33;
+            --accent-glow: rgba(0, 255, 65, 0.08);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 255, 65, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 40px rgba(0, 255, 65, 0.12));
+        }
+
+        h1 {
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 span {
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: pulse 2s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        /* ── SECTIONS ── */
+        section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-label {
+            color: var(--accent);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .section-label::before {
+            content: '// ';
+            opacity: 0.4;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-text {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            max-width: 560px;
+            font-weight: 300;
+        }
+
+        /* ── VENTURES GRID ── */
+        .ventures {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 2.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .ventures { grid-template-columns: 1fr 1fr 1fr; }
+        }
+
+        .venture {
+            background: var(--surface);
+            padding: 2rem 1.5rem;
+            transition: background 0.2s;
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .venture:hover {
+            background: rgba(0, 255, 65, 0.03);
+        }
+
+        .venture-link:hover h3 {
+            color: var(--accent);
+        }
+
+        .venture-link h3 {
+            transition: color 0.2s;
+        }
+
+        .venture-icon {
+            color: var(--accent);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .venture h3 {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .venture p {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .venture .status {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.65rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        /* ── ETHOS ── */
+        .ethos-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .ethos-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .ethos-list li::before {
+            content: '>';
+            color: var(--accent);
+            margin-right: 0.75rem;
+            opacity: 0.5;
+        }
+
+        /* ── CONTACT ── */
+        .contact-section {
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-form {
+            margin-top: 2rem;
+            max-width: 440px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.8rem;
+            margin-bottom: 0.75rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .contact-form button {
+            padding: 0.7rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .contact-form button:hover {
+            border-color: var(--accent);
+            color: var(--text);
+            background: rgba(0, 255, 65, 0.05);
+        }
+
+        .contact-form .form-msg {
+            font-size: 0.75rem;
+            margin-top: 0.75rem;
+            color: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .contact-form .form-msg.visible {
+            opacity: 1;
+        }
+
+        .cf-turnstile {
+            margin-bottom: 0.75rem;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            opacity: 0.4;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Scroll-driven mechanical rails: native scrolling stays in control. */
+        :root { --scroll-distance: 0px; }
+        .drive { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+        .drive-side { position: absolute; top: 0; bottom: 0; width: 190px; }
+        .drive-left { left: 0; }
+        .drive-right { right: 0; transform: scaleX(-1); }
+        .rack { position: absolute; left: 124px; width: 17px; top: -24px; bottom: -24px; border-left: 2px solid #31523a; background: repeating-linear-gradient(to bottom, #31523a 0 8px, transparent 8px 24px); background-position: 0 var(--scroll-distance); opacity: .55; }
+        .cog { position: absolute; width: 244px; height: 244px; left: -111px; top: calc(50% - 122px); color: #31523a; will-change: transform; }
+        .cog svg { display: block; width: 100%; height: 100%; overflow: visible; }
+        .cog-small { width: 122px; height: 122px; left: -50px; top: calc(50% + 111px); color: #243e2b; }
+        .engineering-mark { color: var(--accent); font-size: .8rem; letter-spacing: .25em; margin-bottom: 2rem; border: 1px solid #31523a; padding: .65rem 1rem; }
+        .engineering-mark span { opacity: .35; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 4.75rem); max-width: 900px; }
+        .hero h1 span { display: block; color: #8eaf94; }
+        .tagline { color: #8eaf94; }
+        .section-text, .venture p, .ethos-list li { color: #8eaf94; }
+        .scroll-hint { color: #8eaf94; }
+        .scroll-hint::after { content: ' ↓'; color: var(--accent); }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+        @media (max-width: 1000px) {
+            .drive-side { opacity: .6; }
+            .drive-left { left: -70px; }
+            .drive-right { right: -70px; }
+            section { max-width: calc(100% - 150px); }
+        }
+        @media (max-width: 600px) {
+            .drive-side { opacity: .45; }
+            .drive-left { left: -103px; }
+            .drive-right { right: -103px; }
+            section { max-width: 100%; padding: 4rem 2.75rem; }
+            .hero { padding: 2rem 2.75rem; }
+            .hero h1 { font-size: clamp(1.8rem, 8vw, 2.8rem); }
+            .tagline { max-width: 260px; font-size: .8rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .scroll-hint { animation: none; }
+            .cog { will-change: auto; }
+        }
+        .service-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); margin:2rem 0; border-radius:8px; overflow:hidden; }
+        .service-enquiry { display:block; color:var(--accent); font-size:.74rem; margin-top:1.5rem; text-underline-offset:4px; }
+        .primary-link { display:inline-block; position:relative; z-index:1; color:var(--accent); padding:.8rem 1rem; border:1px solid #31523a; border-radius:4px; font-size:.8rem; text-decoration:none; }
+        .venture h3 { font-size:1rem; } .venture p { font-size:.82rem; } .section-text { font-size:.9rem; }
+        .hero .section-text { position:relative; z-index:1; }
+        @media(max-width:640px) { .service-grid { grid-template-columns:1fr; } }
+        .site-header { position:relative; z-index:2; max-width:1000px; margin:auto; padding:1.5rem 2.5rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; border-bottom:1px solid var(--border); }
+        .wordmark { color:var(--accent); font-size:1rem; font-weight:700; text-decoration:none; } .wordmark span { color:#8eaf94; font-size:.75rem; font-weight:400; }
+        nav { display:flex; gap:1.4rem; flex-wrap:wrap; } nav a { color:#b4ceb8; font-size:.75rem; text-decoration:none; } nav a:hover,nav a[aria-current="page"] { color:var(--accent); }
+        .hero { min-height:calc(100svh - 80px); } .service-grid.pillars { grid-template-columns:1fr; } .pillars .venture { padding:2.2rem; } .pillars h3 { font-size:1.65rem; } .pillars p { max-width:580px; }
+        .page-hero { min-height:65svh; } .page-hero h1 { font-size:clamp(3rem,8vw,6rem); } .page-hero .tagline { max-width:580px; }
+        .notice { border-left:2px solid var(--accent-dim); padding:1rem 1.5rem; background:var(--surface); margin-top:2rem; color:#8eaf94; font-size:.8rem; }
+        footer { opacity:1; color:#8eaf94; } footer span { display:block; margin-top:.5rem; font-size:.65rem; color:#8eaf94; }
+        @media(max-width:600px) { .site-header { padding:1.25rem 2.75rem; flex-direction:column; align-items:flex-start; } nav { gap:1rem; } .hero { min-height:80svh; } .page-hero { min-height:60svh; } }
+    </style>
+</head>
+<body>
+
+    <header class="site-header"><a class="wordmark" href="/">PE<span> / Engineering</span></a><nav aria-label="Main navigation"><a href="/repair/">Repair</a><a href="/build/">Build</a><a href="/automate/" aria-current="page">Automate</a><a href="#contact">Enquire</a></nav></header>
+    <div class="drive" aria-hidden="true"><div class="drive-side drive-left"><div class="rack"></div><div class="cog cog-large"></div><div class="cog cog-small"></div></div><div class="drive-side drive-right"><div class="rack"></div><div class="cog cog-large"></div><div class="cog cog-small"></div></div></div>
+    <div class="hero page-hero"><div class="engineering-mark">PE / AUTOMATE</div><h1>Automate</h1><p class="tagline">Make the repeat work run itself.</p><p class="section-text" style="text-align:center;margin-bottom:2rem">Connect tools, process information and remove repetitive steps. Start with one workflow and a result you can measure.</p><a class="primary-link" href="#contact">Discuss your project →</a></div>
+<main><section><div class="section-label">Automate / Project enquiries</div><h2>Make the repeat work run itself.</h2><div class="service-grid"><article class="venture"><div class="venture-icon">01</div><h3>Reporting & document processing</h3><p>Turn repeat data entry and document handling into a defined workflow, with review points where mistakes matter.</p><a class="service-enquiry" href="#contact" data-service="Reporting & document processing">Discuss a reporting workflow →</a></article><article class="venture"><div class="venture-icon">02</div><h3>AI agents & integrations</h3><p>Agents, tool connections and knowledge workflows built around a specific business task. Define permissions, failure handling and the required output.</p><a class="service-enquiry" href="#contact" data-service="AI agents & integrations">Map an agent workflow →</a></article><article class="venture"><div class="venture-icon">03</div><h3>Dashboards & small software tools</h3><p>Bring the information needed for a recurring job into one useful interface. Scope the data sources and the decisions the tool should support.</p><a class="service-enquiry" href="#contact" data-service="Dashboards & small software tools">Discuss a software tool →</a></article><article class="venture"><div class="venture-icon">04</div><h3>Repeatable data processing</h3><p>A candidate for self-service delivery: a supported input, deterministic checks and a downloadable result. Validate the format and useful output before productising it.</p><a class="service-enquiry" href="#contact" data-service="Repeatable data processing">Propose a processing tool →</a></article></div><div class="notice">Describe the task, how often it repeats, the input files or systems and what a successful output looks like. Include a sanitised example where possible.</div></section>    <section id="online"><div class="section-label">Online services / in development</div><h2>Upload a file. Get something useful back.</h2><p class="section-text">We’re developing automated engineering tools with defined inputs and clear outputs. These are planned products, not services currently available to purchase.</p><div class="service-grid">
+    <article class="venture"><div class="venture-icon">BIN</div><h3>Firmware inspection</h3><p>Planned: file fingerprints, recognised embedded formats, extractable contents and entropy plots. Coverage will depend on the firmware format; no promise of unlocking or a complete security audit.</p><span class="status">Planned / register interest</span></article>
+    <article class="venture"><div class="venture-icon">DIFF</div><h3>Binary comparison</h3><p>Planned: compare two firmware images and locate changed byte ranges with a downloadable change report. Explaining what every change does requires further analysis.</p><span class="status">Planned / register interest</span></article>
+    <article class="venture"><div class="venture-icon">LOG</div><h3>Diagnostic log reports</h3><p>Planned: turn supported log formats into event timelines, repeated-error summaries and clear reports. Initial support will focus on one defined equipment or software format.</p><span class="status">Planned / register interest</span></article>
+    </div><a class="primary-link" href="#contact" data-service="Automated engineering tools">Tell us which tool you need →</a></section>
+<section><div class="section-label">Explore the other capabilities</div><p class="section-text"><a class="service-enquiry" href="/repair/">Repair →</a><a class="service-enquiry" href="/build/">Build →</a><a class="service-enquiry" href="/automate/">Automate →</a></p></section></main>
+    <!-- CONTACT -->
+    <section class="contact-section" id="contact">
+        <div class="section-label">Contact</div>
+        <h2>What do you need to build or fix?</h2>
+        <p class="section-text">Include the equipment or file type, the problem, quantities where relevant, and the result you need. We’ll assess the fit before agreeing any work.</p>
+        <form class="contact-form" id="contactForm" action="/api/contact" method="POST">
+            <input aria-label="Your email" type="email" name="email" placeholder="your@email.com" required />
+            <textarea aria-label="Your message" name="message" placeholder="Equipment, project, batch size or tool you need…" required></textarea>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAACyvf6eIigaQvDWP" data-theme="dark"></div>
+            <button type="submit">Send message</button>
+            <p class="form-msg" id="formMsg"></p>
+        </form>
+    </section>
+
+    <footer>&copy; 2026 Pevreall Engineering<span>Pevreall Technologies Group · Repair / Build / Automate</span></footer>
+
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script>
+        document.querySelectorAll('[data-service]').forEach(link => link.addEventListener('click', () => {
+            document.querySelector('textarea[name="message"]').value = 'Enquiry: ' + link.dataset.service + '\n\n';
+        }));
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const msg = document.getElementById('formMsg');
+            const btn = form.querySelector('button');
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+            try {
+                const res = await fetch('/api/contact', {
+                    method: 'POST',
+                    body: new FormData(form)
+                });
+                if (res.ok) {
+                    msg.textContent = 'Message sent.';
+                    msg.classList.add('visible');
+                    form.reset();
+                    turnstile.reset();
+                } else {
+                    msg.textContent = 'Something went wrong. Try again.';
+                    msg.classList.add('visible');
+                }
+            } catch {
+                msg.textContent = 'Something went wrong. Try again.';
+                msg.classList.add('visible');
+            }
+            btn.textContent = 'Send message';
+            btn.disabled = false;
+        });
+    </script>
+
+    <script>
+        (() => {
+            // 30 teeth at 24px pitch: rack travel and gear rotation stay linked.
+            const gear = (teeth) => {
+                const points = [];
+                for (let t = 0; t < teeth; t++) {
+                    for (const [fraction, radius] of [[0,108],[.18,108],[.28,120],[.72,120],[.82,108]]) {
+                        const a = (t + fraction) * Math.PI * 2 / teeth;
+                        points.push(`${122 + Math.cos(a)*radius},${122 + Math.sin(a)*radius}`);
+                    }
+                }
+                return `<svg viewBox="0 0 244 244" fill="none" stroke="currentColor" stroke-width="2"><polygon points="${points.join(' ')}" fill="#0a100b"/><circle cx="122" cy="122" r="80"/><circle cx="122" cy="122" r="27"/><path d="M122 42V95M122 149V202M42 122H95M149 122H202"/><circle cx="122" cy="122" r="7" fill="currentColor"/></svg>`;
+            };
+            document.querySelectorAll('.cog-large').forEach(el => el.innerHTML = gear(30));
+            document.querySelectorAll('.cog-small').forEach(el => el.innerHTML = gear(15));
+            const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+            const large = document.querySelectorAll('.cog-large');
+            const small = document.querySelectorAll('.cog-small');
+            let pending = false;
+            function render() {
+                pending = false;
+                const y = reduced.matches ? 0 : window.scrollY;
+                document.documentElement.style.setProperty('--scroll-distance', `${-y % 24}px`);
+                large.forEach(el => el.style.transform = `rotate(${-y / 2}deg)`);
+                small.forEach(el => el.style.transform = `rotate(${y + 12}deg)`);
+            }
+            addEventListener('scroll', () => {
+                if (!pending) { pending = true; requestAnimationFrame(render); }
+            }, {passive: true});
+            reduced.addEventListener('change', render);
+            render();
+        })();
+    </script>
+</body>
+</html>
